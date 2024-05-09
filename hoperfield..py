@@ -1,4 +1,5 @@
 import numpy as np
+import time
 
 
 class HopfieldNetwork:
@@ -7,10 +8,14 @@ class HopfieldNetwork:
         self.weights = np.zeros((pattern_size ** 2, pattern_size ** 2))
 
     def train(self, patterns):
+        start_time = time.time()
         for pattern in patterns:
             flattened_pattern = pattern.flatten()
             self.weights += np.outer(flattened_pattern, flattened_pattern)
             np.fill_diagonal(self.weights, 0)
+        end_time = time.time()
+        training_time = end_time - start_time
+        return training_time
 
     def recall(self, pattern, max_iter=100):
         flattened_pattern = pattern.flatten()
@@ -52,7 +57,7 @@ test_patterns = [
 
 # Crie e treine a rede
 network = HopfieldNetwork(pattern_size=5)
-network.train(training_patterns)
+training_time = network.train(training_patterns)
 
 # Teste a recuperação dos padrões de teste
 for pattern in test_patterns:
@@ -63,3 +68,5 @@ for pattern in test_patterns:
     print(retrieved_pattern)
     accuracy = calculate_accuracy(pattern, retrieved_pattern)
     print("Porcentagem de Acerto: {:.2f}%\n".format(accuracy))
+
+print("Tempo de Treinamento: {:.6f} segundos".format(training_time))
