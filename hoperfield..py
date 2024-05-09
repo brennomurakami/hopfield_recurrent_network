@@ -131,5 +131,11 @@ for pattern in test_patterns:
     print("Número de iterações:", num_iterations)
     visualize_matrices(pattern, retrieved_pattern)
 
+media_iteracoes_por_teste = num_iteracoes_totais / len(test_patterns)
+media_tempo_recuperacao = training_time / len(test_patterns)
+
+print("Estatísticas gerais")
 print("Tempo de Treinamento: {:.6f} segundos".format(training_time))
 print("Número de iterações totais:", num_iteracoes_totais)
+print("Média de iterações por teste:", media_iteracoes_por_teste)
+print("Tempo médio de recuperação por teste: {:.6f} segundos".format(media_tempo_recuperacao))
